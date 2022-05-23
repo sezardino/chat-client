@@ -33,11 +33,11 @@
 
 <script lang="ts" setup>
 import type { Notification } from "@/types";
+import { useApp } from "@/stores";
 
 import CrossIcon from "@/assets/icons/cross.svg";
 import CheckIcon from "@/assets/icons/check.svg";
 import InfoIcon from "@/assets/icons/info.svg";
-import { useApp } from "@/stores";
 
 const store = useApp();
 

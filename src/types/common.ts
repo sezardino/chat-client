@@ -7,3 +7,10 @@ export enum Layouts {
   DEFAULT = "default",
   WITH_TOAST = "with-toast",
 }
+
+export enum PageRoutes {
+  HOME = "/",
+  HELP = "/help",
+  LOGIN = "/login",
+  CHATS = "/chats",
+}

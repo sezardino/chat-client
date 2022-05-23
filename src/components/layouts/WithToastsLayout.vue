@@ -5,10 +5,10 @@
       <slot />
     </main>
   </div>
-  <UiToasts />
+  <AppToasts />
 </template>
 
 <script lang="ts" setup>
 import AppHeader from "@/components/blocks/AppHeader.vue";
-import UiToasts from "@/components/UI/UiToasts.vue";
+import AppToasts from "@/components/blocks/AppToasts.vue";
 </script>

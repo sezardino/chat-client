@@ -33,15 +33,20 @@
           </template>
         </ul>
         <div>
-          <UiButton v-if="!appStore.user" variant="tertiary" to="/login"
-            >Login</UiButton
+          <UiButton
+            v-if="!appStore.user"
+            variant="tertiary"
+            :to="PageRoutes.LOGIN"
           >
+            Login
+          </UiButton>
           <UiButton
             v-if="appStore.user"
             variant="tertiary"
             @click="socketStore.logout"
-            >Logout</UiButton
           >
+            Logout
+          </UiButton>
         </div>
       </div>
     </div>
@@ -49,12 +54,13 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from "vue";
+import { PageRoutes } from "@/types";
+import UiButton from "@/components/UI/UiButton.vue";
 import { useApp, useSocketStore } from "@/stores";
-import UiButton from "../UI/UiButton.vue";
 
 import LogoIcon from "@/assets/images/logo.svg";
 import HamburgerIcon from "@/assets/icons/hamburger.svg";
-import { ref } from "vue";
 
 const appStore = useApp();
 const socketStore = useSocketStore();
@@ -63,11 +69,11 @@ const isOpen = ref(false);
 const headerLinks = [
   {
     name: "Home",
-    to: "/",
+    to: PageRoutes.HOME,
   },
   {
     name: "Help",
-    to: "/help",
+    to: PageRoutes.HELP,
   },
 ];
 </script>
