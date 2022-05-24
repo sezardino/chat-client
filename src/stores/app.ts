@@ -1,8 +1,8 @@
 import { defineStore } from "pinia";
-import type { Notification } from "@/types";
+import type { Notification, Room, User } from "@/types";
 
 interface Store {
-  user: string | null;
+  user: User | null;
   toasts: Notification[];
 }
 
@@ -14,8 +14,15 @@ export const useApp = defineStore({
   }),
   getters: {},
   actions: {
-    setUser(user: string | null) {
+    setUser(user: User | null) {
       this.user = user;
+    },
+    addRoom(room: Room) {
+      if (!this.user) {
+        return;
+      }
+
+      this.user.rooms.push(room);
     },
     addToast(notification: Notification, deleteDelay = 5000) {
       this.toasts.push(notification);

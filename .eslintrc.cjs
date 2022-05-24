@@ -16,4 +16,8 @@ module.exports = {
     browser: true,
     es6: true,
   },
+  rules: {
+    "@typescript-eslint/explicit-function-return-type": false,
+    "@typescript-eslint/no-empty-interface": false,
+  },
 };

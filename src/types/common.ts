@@ -14,3 +14,5 @@ export enum PageRoutes {
   LOGIN = "/login",
   CHATS = "/chats",
 }
+
+export type ClientHandler = (notification: Notification) => void;

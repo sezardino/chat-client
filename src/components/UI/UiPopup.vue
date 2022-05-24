@@ -4,8 +4,7 @@
       v-show="isOpen"
       class="fade fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto bg-black bg-opacity-50 flex justify-center items-center"
       tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
+      :aria-hidden="isOpen"
       @click="$emit('close-modal')"
     >
       <div class="relative w-auto pointer-events-none" @click.stop>

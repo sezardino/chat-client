@@ -13,7 +13,8 @@ import { Layouts } from "@/types";
 import WithToastsLayout from "@/components/layouts/WithToastsLayout.vue";
 import DefaultLayout from "@/components/layouts/DefaultLayout.vue";
 
-const route = useRoute();
+const router = useRouter();
+const socketStore = useSocketStore();
 const appStore = useApp();
 
 const layout = computed(() => {
@@ -28,9 +29,16 @@ watch(
   () => appStore.user,
   (newValue, oldValue) => {
     if (oldValue && !newValue) {
-      useRouter().push("/login");
+      router.push("/login");
     }
   }
 );
 
+onMounted(() => {
+  socketStore.connect();
+});
+
+onUnmounted(() => {
+  socketStore.disconnect();
+});
 </script>

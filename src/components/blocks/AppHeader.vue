@@ -3,12 +3,12 @@
     class="flex items-center justify-between flex-wrap bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-6"
   >
     <div class="container mx-auto flex flex-wrap gap-8 justify-between">
-      <router-link to="/">
+      <router-link :to="PageRoutes.HOME">
         <LogoIcon class="text-white" />
       </router-link>
       <button
         class="flex lg:hidden items-center px-3 py-2 border rounded text-white border-white hover:bg-black hover:bg-opacity-20"
-        aria-label="open menu"
+        :aria-label="`${isOpen ? 'close' : 'open'} menu`"
         @click="isOpen = !isOpen"
       >
         <HamburgerIcon class="fill-current h-3 w-3" />
@@ -21,7 +21,12 @@
           class="mt-4 lg:mt-0 text-sm lg:flex-grow flex flex-col lg:flex-row gap-2"
         >
           <template v-for="link in headerLinks" :key="link.to">
-            <li>
+            <li
+              v-if="
+                link.to !== PageRoutes.CHATS ||
+                (link.to === PageRoutes.CHATS && appStore.user)
+              "
+            >
               <UiButton
                 :to="link.to"
                 variant="secondary"
@@ -74,6 +79,10 @@ const headerLinks = [
   {
     name: "Help",
     to: PageRoutes.HELP,
+  },
+  {
+    name: "Chats",
+    to: PageRoutes.CHATS,
   },
 ];
 </script>
