@@ -1,4 +1,4 @@
-import type { Room, User } from "./models";
+import type { Message, Room, User } from "./models";
 
 export interface CreateChatDto {
   name: string;
@@ -16,9 +16,13 @@ export interface CreateRoomDto {
 
 export interface SendMessageDto {
   room: Room["id"];
-  message: string;
+  message: Pick<Message, "body" | "from">;
 }
 
 export interface JoinRoomDto {
-  room: Room["id"];
+  roomId: Room["id"];
+}
+
+export interface NewMessageDto {
+  messages: Message[];
 }

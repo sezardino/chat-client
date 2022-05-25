@@ -6,19 +6,15 @@ export interface WithName {
   name: string;
 }
 
-export interface User extends WithName, WithId {
-  rooms: Room[];
-}
+export interface User extends WithName, WithId {}
 
 export interface Message extends WithId {
-  from: User;
+  from: User["name"];
   body: string;
   date: number;
 }
 
-export interface Chat extends WithId, WithName {
+export interface Room extends WithId {
   users: User["id"][];
   messages: Message[];
 }
-
-export interface Room extends WithId {}

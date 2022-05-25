@@ -24,21 +24,22 @@
         </template>
       </ul>
     </div>
-    <div
+    <form
       class="flex items-center justify-between w-full p-3 border-t border-gray-300"
+      @submit.prevent="submitHandler"
     >
       <UiInput
         :model-value="message"
         variant="secondary"
         placeholder="Message"
-        @update:modalValue="message = $event"
+        @update:modelValue="message = $event"
       />
       <UiButton variant="tertiary" type="submit" aria-label="send message">
         <ArrowIcon
           class="w-5 h-5 text-gray-500 origin-center transform rotate-90"
         />
       </UiButton>
-    </div>
+    </form>
   </div>
 </template>
 
@@ -56,8 +57,18 @@ interface Props {
 }
 
 defineProps<Props>();
+const emit = defineEmits<{ (e: "submit", body: string): void }>();
 
 const appStore = useApp();
 
 const message = ref("");
+
+const submitHandler = () => {
+  if (!message.value.trim()) {
+    return;
+  }
+
+  emit("submit", message.value);
+  message.value = "";
+};
 </script>

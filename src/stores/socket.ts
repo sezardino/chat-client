@@ -9,6 +9,9 @@ import type {
   Room,
   ClientHandler,
   JoinRoomDto,
+  SendMessageDto,
+  NewMessageDto,
+  RoomHandler,
 } from "@/types";
 import { useApp } from "@/stores";
 
@@ -32,11 +35,22 @@ export const useSocketStore = defineStore({
         transports: ["websocket", "polling"],
       });
     },
-    sendMessage() {
-      if (!this.socket) {
+    sendMessage(body: string) {
+      const appStore = useApp();
+
+      if (!this.socket || !appStore.user) {
         return;
       }
-      this.socket.emit("send-message", "Hello");
+
+      const successHandler = (notification: Notification) => {
+        appStore.addToast(notification);
+      };
+
+      const dto: SendMessageDto = {
+        room: appStore.rooms[0].id,
+        message: { from: appStore.user.id, body },
+      };
+      this.socket.emit("send-message", dto, successHandler);
     },
     createRoom(id: string, successHandler: ClientHandler) {
       if (!this.socket) {
@@ -44,9 +58,8 @@ export const useSocketStore = defineStore({
       }
 
       const appStore = useApp();
-      const newRoom: Room = { id };
 
-      const handler = (notification: Notification) => {
+      const handler: RoomHandler = (notification, room) => {
         appStore.addToast(notification);
 
         if (notification.type === "error") {
@@ -54,21 +67,20 @@ export const useSocketStore = defineStore({
         }
 
         successHandler(notification);
-        appStore.addRoom(newRoom);
+        appStore.addRoom(room);
       };
 
-      const dto: CreateRoomDto = newRoom;
+      const dto: CreateRoomDto = { id };
       this.socket.emit("create-room", dto, handler);
     },
-    joinRoom(room: string, successHandler: ClientHandler) {
+    joinRoom(roomId: string, successHandler: ClientHandler) {
       if (!this.socket) {
         return;
       }
 
       const appStore = useApp();
-      const newRoom: Room = { id: room };
 
-      const handler = (notification: Notification) => {
+      const handler: RoomHandler = (notification, room) => {
         appStore.addToast(notification);
 
         if (notification.type === "error") {
@@ -76,10 +88,10 @@ export const useSocketStore = defineStore({
         }
 
         successHandler(notification);
-        appStore.addRoom(newRoom);
+        appStore.addRoom(room);
       };
 
-      const dto: JoinRoomDto = { room };
+      const dto: JoinRoomDto = { roomId };
       this.socket.emit("join-room", dto, handler);
     },
     disconnect() {
@@ -121,12 +133,33 @@ export const useSocketStore = defineStore({
           return;
         }
 
-        appStore.user = { name, id: this.socket.id, rooms: [] };
+        appStore.user = { name, id: this.socket.id };
         successHandler();
       };
 
       const dto: LoginDto = { name, id: this.socket.id };
       this.socket.emit("login", dto, handler);
+    },
+    subscribeOnNewMessages(roomId: Room["id"]) {
+      const appStore = useApp();
+
+      if (!this.socket || !appStore.user) {
+        return;
+      }
+      console.log(roomId);
+      this.socket.on(`new-message-${roomId}`, (dto: NewMessageDto) => {
+        console.log(dto);
+        appStore.setMessages(dto.messages);
+      });
+    },
+    unSubscribeOnNewMessages(roomId: string) {
+      const appStore = useApp();
+
+      if (!this.socket || !appStore.user) {
+        return;
+      }
+
+      this.socket.off(`new-message-${roomId}`);
     },
   },
 });

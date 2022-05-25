@@ -15,9 +15,8 @@
     <ChatRoom
       v-if="room"
       :room-name="room.id"
-      :messages="[
-        { id: '1', body: 'dwd', date: Date.now(), from: appStore.user! },
-      ]"
+      :messages="appStore.messages"
+      @submit="sendMessageHandler"
     />
   </div>
 </template>
@@ -39,11 +38,28 @@ const joinRoomHandler = (roomName: string, successHandler: () => void) => {
   socketStore.joinRoom(roomName, successHandler);
 };
 
+const sendMessageHandler = (body: string) => {
+  console.log(1);
+  socketStore.sendMessage(body);
+};
+
 const room = computed(() => {
   if (!appStore.user) {
     return;
   }
 
-  return appStore.user.rooms[0];
+  return appStore.rooms[0];
+});
+
+watch(room, (newValue, oldValue) => {
+  if (newValue) {
+    socketStore.subscribeOnNewMessages(newValue.id);
+    return;
+  }
+
+  if (oldValue) {
+    socketStore.unSubscribeOnNewMessages(oldValue.id);
+    return;
+  }
 });
 </script>
