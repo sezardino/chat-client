@@ -42,10 +42,11 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from "vue";
+
 import UiPopup from "@/components/UI/UiPopup.vue";
-import { onMounted, ref, watch, type VNodeRef } from "vue";
-import UiButton from "../UI/UiButton.vue";
-import UiInput from "../UI/UiInput.vue";
+import UiButton from "@/components/UI/UiButton.vue";
+import UiInput from "@/components/UI/UiInput.vue";
 
 interface Props {
   buttonLabel: string;

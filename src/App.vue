@@ -8,7 +8,7 @@
 import { computed, onMounted, onUnmounted, watch } from "vue";
 import { RouterView, useRoute, useRouter } from "vue-router";
 import { useApp, useSocketStore } from "@/stores";
-import { Layouts } from "@/types";
+import { Layouts } from "@/common";
 
 import WithToastsLayout from "@/components/layouts/WithToastsLayout.vue";
 import DefaultLayout from "@/components/layouts/DefaultLayout.vue";
@@ -39,6 +39,6 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  socketStore.disconnect();
+  socketStore.logout();
 });
 </script>

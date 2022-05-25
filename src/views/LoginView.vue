@@ -44,13 +44,13 @@
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 
+import { PageRoutes } from "@/common";
 import { useSocketStore } from "@/stores";
-import { PageRoutes } from "@/types";
 
 import ChatIllustration from "@/assets/illustration/chat.svg";
 
-import UiButton from "../components/UI/UiButton.vue";
-import UiInput from "../components/UI/UiInput.vue";
+import UiButton from "@/components/UI/UiButton.vue";
+import UiInput from "@/components/UI/UiInput.vue";
 
 const router = useRouter();
 

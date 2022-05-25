@@ -44,12 +44,14 @@
 </template>
 
 <script setup lang="ts">
-import ArrowIcon from "@/assets/icons/arrow.svg";
-import UiInput from "../UI/UiInput.vue";
-import UiButton from "../UI/UiButton.vue";
 import { ref } from "vue";
-import type { Message } from "@/types";
 import { useApp } from "@/stores";
+import type { Message } from "@/common";
+
+import ArrowIcon from "@/assets/icons/arrow.svg";
+
+import UiInput from "@/components/UI/UiInput.vue";
+import UiButton from "@/components/UI/UiButton.vue";
 
 interface Props {
   roomName: string;

@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Notification } from "@/types";
+import type { Notification } from "@/common";
 import { useApp } from "@/stores";
 
 import CrossIcon from "@/assets/icons/cross.svg";

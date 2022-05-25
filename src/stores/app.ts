@@ -1,11 +1,16 @@
 import { defineStore } from "pinia";
-import type { Message, Notification, Room, User } from "@/types";
+import {
+  getErrNotification,
+  type Message,
+  type Notification,
+  type Room,
+  type User,
+} from "@/common";
 
 interface Store {
   user: User | null;
   toasts: Notification[];
   rooms: Room[];
-  messages: Message[];
 }
 
 export const useApp = defineStore({
@@ -14,15 +19,14 @@ export const useApp = defineStore({
     user: null,
     toasts: [],
     rooms: [],
-    messages: [],
   }),
   getters: {},
   actions: {
     setUser(user: User | null) {
       this.user = user;
     },
-    setMessages(messages: Message[]) {
-      this.messages = messages;
+    setRooms(rooms: Room[]) {
+      this.rooms = rooms;
     },
     addRoom(room: Room) {
       if (!this.user) {
@@ -40,6 +44,13 @@ export const useApp = defineStore({
     },
     deleteToast(title: Notification["title"]) {
       this.toasts = this.toasts.filter((toast) => toast.title !== title);
+    },
+    setMessages(messages: Message[]) {
+      if (!this.rooms[0]) {
+        return this.addToast(getErrNotification("Room not found"));
+      }
+
+      this.rooms[0].messages = messages;
     },
   },
 });

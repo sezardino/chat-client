@@ -14,18 +14,19 @@
     </div>
     <ChatRoom
       v-if="room"
-      :room-name="room.id"
-      :messages="appStore.messages"
+      :room-name="room.name"
+      :messages="appStore.rooms[0].messages"
       @submit="sendMessageHandler"
     />
   </div>
 </template>
 
 <script lang="ts" setup>
+import { computed, watch } from "vue";
+import { useApp, useSocketStore } from "@/stores";
+
 import RoomPopup from "@/components/blocks/RoomPopup.vue";
 import ChatRoom from "@/components/blocks/ChatRoom.vue";
-import { useApp, useSocketStore } from "@/stores";
-import { computed, watch } from "vue";
 
 const socketStore = useSocketStore();
 const appStore = useApp();
@@ -39,7 +40,6 @@ const joinRoomHandler = (roomName: string, successHandler: () => void) => {
 };
 
 const sendMessageHandler = (body: string) => {
-  console.log(1);
   socketStore.sendMessage(body);
 };
 
@@ -51,14 +51,9 @@ const room = computed(() => {
   return appStore.rooms[0];
 });
 
-watch(room, (newValue, oldValue) => {
+watch(room, (newValue) => {
   if (newValue) {
-    socketStore.subscribeOnNewMessages(newValue.id);
-    return;
-  }
-
-  if (oldValue) {
-    socketStore.unSubscribeOnNewMessages(oldValue.id);
+    socketStore.subscribe();
     return;
   }
 });

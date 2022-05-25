@@ -11,7 +11,8 @@ export interface LoginDto {
 }
 
 export interface CreateRoomDto {
-  id: string;
+  name: Room["name"];
+  userId: User["id"];
 }
 
 export interface SendMessageDto {
@@ -20,7 +21,8 @@ export interface SendMessageDto {
 }
 
 export interface JoinRoomDto {
-  roomId: Room["id"];
+  userId: User["id"];
+  roomName: Room["name"];
 }
 
 export interface NewMessageDto {

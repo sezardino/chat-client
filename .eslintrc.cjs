@@ -19,5 +19,15 @@ module.exports = {
   rules: {
     "@typescript-eslint/explicit-function-return-type": false,
     "@typescript-eslint/no-empty-interface": false,
-  },
+    "@typescript-eslint/no-explicit-any": true,
+    "@typescript-eslint/no-non-null-assertion": false,
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        vars: "all",
+        args: "after-used",
+        ignoreRestSiblings: false,
+        argsIgnorePattern: "^_",
+      },
+    ],
 };

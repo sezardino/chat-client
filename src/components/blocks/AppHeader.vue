@@ -60,12 +60,14 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { PageRoutes } from "@/types";
-import UiButton from "@/components/UI/UiButton.vue";
-import { useApp, useSocketStore } from "@/stores";
+import { PageRoutes } from "@/common";
 
 import LogoIcon from "@/assets/images/logo.svg";
 import HamburgerIcon from "@/assets/icons/hamburger.svg";
+
+import UiButton from "@/components/UI/UiButton.vue";
+
+import { useApp, useSocketStore } from "@/stores";
 
 const appStore = useApp();
 const socketStore = useSocketStore();

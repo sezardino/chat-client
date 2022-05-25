@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { Layouts, PageRoutes } from "@/types";
+import { Layouts, PageRoutes } from "@/common";
 import Home from "@/views/HomeView.vue";
 import { useApp } from "@/stores";
 
