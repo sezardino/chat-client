@@ -1,3 +1,7 @@
 <template>
-  <h1>Help</h1>
+  <HelpInfo />
 </template>
+
+<script lang="ts" setup>
+import HelpInfo from "@/components/blocks/HelpInfo.vue";
+</script>

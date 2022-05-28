@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen grid grid-rows-[auto_1fr]">
     <AppHeader />
-    <main>
+    <main class="container mx-auto">
       <slot />
     </main>
   </div>

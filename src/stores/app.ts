@@ -148,7 +148,6 @@ export const useAppStore = defineStore({
         this.addToast(getErrNotification(error as string));
       }
     },
-
     async subscribe() {
       if (!this.user) {
         return;
