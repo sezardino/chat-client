@@ -23,24 +23,23 @@
 
 <script lang="ts" setup>
 import { computed, watch } from "vue";
-import { useApp, useSocketStore } from "@/stores";
+import { useAppStore } from "@/stores";
 
 import RoomPopup from "@/components/blocks/RoomPopup.vue";
 import ChatRoom from "@/components/blocks/ChatRoom.vue";
 
-const socketStore = useSocketStore();
-const appStore = useApp();
+const appStore = useAppStore();
 
 const createRoomHandler = (roomName: string, successHandler: () => void) => {
-  socketStore.createRoom(roomName, successHandler);
+  appStore.createRoom(roomName, successHandler);
 };
 
 const joinRoomHandler = (roomName: string, successHandler: () => void) => {
-  socketStore.joinRoom(roomName, successHandler);
+  appStore.joinRoom(roomName, successHandler);
 };
 
 const sendMessageHandler = (body: string) => {
-  socketStore.sendMessage(body);
+  appStore.sendMessage(body);
 };
 
 const room = computed(() => {
@@ -53,7 +52,7 @@ const room = computed(() => {
 
 watch(room, (newValue) => {
   if (newValue) {
-    socketStore.subscribe();
+    appStore.subscribe();
     return;
   }
 });

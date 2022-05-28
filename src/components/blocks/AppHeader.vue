@@ -48,7 +48,7 @@
           <UiButton
             v-if="appStore.user"
             variant="tertiary"
-            @click="socketStore.logout"
+            @click="appStore.logout"
           >
             Logout
           </UiButton>
@@ -67,10 +67,9 @@ import HamburgerIcon from "@/assets/icons/hamburger.svg";
 
 import UiButton from "@/components/UI/UiButton.vue";
 
-import { useApp, useSocketStore } from "@/stores";
+import { useAppStore } from "@/stores";
 
-const appStore = useApp();
-const socketStore = useSocketStore();
+const appStore = useAppStore();
 const isOpen = ref(false);
 
 const headerLinks = [

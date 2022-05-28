@@ -45,7 +45,7 @@ import { useRouter } from "vue-router";
 import { ref } from "vue";
 
 import { PageRoutes } from "@/common";
-import { useSocketStore } from "@/stores";
+import { useAppStore } from "@/stores";
 
 import ChatIllustration from "@/assets/illustration/chat.svg";
 
@@ -53,9 +53,9 @@ import UiButton from "@/components/UI/UiButton.vue";
 import UiInput from "@/components/UI/UiInput.vue";
 
 const router = useRouter();
+const appStore = useAppStore();
 
 const name = ref("");
-const socketStore = useSocketStore();
 
 const onSubmitSuccess = () => {
   router.push(PageRoutes.CHATS);
@@ -67,6 +67,6 @@ const submitHandler = () => {
     return;
   }
 
-  socketStore.login(name.value, onSubmitSuccess);
+  appStore.login(name.value, onSubmitSuccess);
 };
 </script>

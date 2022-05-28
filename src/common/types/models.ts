@@ -9,7 +9,7 @@ export interface WithName {
 export interface User extends WithName, WithId {}
 
 export interface Message extends WithId {
-  from: User["name"];
+  from?: Pick<User, "id" | "name">;
   body: string;
   date: number;
 }

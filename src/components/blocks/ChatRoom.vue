@@ -6,21 +6,12 @@
       <span class="block ml-2 font-bold text-gray-600">{{ roomName }}</span>
     </div>
     <div class="relative w-full p-6 overflow-y-auto">
-      <ul class="space-y-2">
+      <ul class="space-y-2 flex flex-col">
         <template v-for="message in messages" :key="message.id">
-          <li
-            class="flex"
-            :class="{
-              'justify-start': message.from !== appStore.user?.id,
-              'justify-end': message.from === appStore.user?.id,
-            }"
-          >
-            <div
-              class="relative max-w-xl px-4 py-2 text-gray-700 rounded shadow"
-            >
-              <span class="block">{{ message.body }}</span>
-            </div>
-          </li>
+          <ChatMessage
+            :message="message"
+            :current-user="appStore.user?.id || ''"
+          />
         </template>
       </ul>
     </div>
@@ -44,14 +35,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { useApp } from "@/stores";
+import { onMounted, ref, watch } from "vue";
+import { useAppStore } from "@/stores";
 import type { Message } from "@/common";
 
 import ArrowIcon from "@/assets/icons/arrow.svg";
 
 import UiInput from "@/components/UI/UiInput.vue";
 import UiButton from "@/components/UI/UiButton.vue";
+import ChatMessage from "@/components/blocks/ChatMessage.vue";
 
 interface Props {
   roomName: string;
@@ -61,7 +53,7 @@ interface Props {
 defineProps<Props>();
 const emit = defineEmits<{ (e: "submit", body: string): void }>();
 
-const appStore = useApp();
+const appStore = useAppStore();
 
 const message = ref("");
 

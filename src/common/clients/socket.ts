@@ -91,7 +91,9 @@ class SocketClient {
       }
 
       this.io.emit(ClientEvents.SEND_MESSAGE, dto);
-      resolve();
+
+      this.io.once(ServerEvents.SEND_MESSAGE_FAIL, reject);
+      this.io.once(ServerEvents.SEND_MESSAGE_SUCCESS, resolve);
     });
   }
 

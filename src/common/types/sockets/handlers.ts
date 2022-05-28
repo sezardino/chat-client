@@ -22,6 +22,8 @@ export interface SocketSrvToClEvt {
   [ServerEvents.CREATE_ROOM_SUCCESS]: (room: Room) => void;
   [ServerEvents.JOIN_ROOM_SUCCESS]: (room: Room) => void;
   [ServerEvents.JOIN_ROOM_FAIL]: (err: string) => void;
+  [ServerEvents.SEND_MESSAGE_FAIL]: (err: string) => void;
+  [ServerEvents.SEND_MESSAGE_SUCCESS]: () => void;
 }
 
 export interface SocketClToSrvEvt {

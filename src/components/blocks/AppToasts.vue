@@ -33,13 +33,13 @@
 
 <script lang="ts" setup>
 import type { Notification } from "@/common";
-import { useApp } from "@/stores";
+import { useAppStore } from "@/stores";
 
 import CrossIcon from "@/assets/icons/cross.svg";
 import CheckIcon from "@/assets/icons/check.svg";
 import InfoIcon from "@/assets/icons/info.svg";
 
-const store = useApp();
+const store = useAppStore();
 
 const getIcon = (type: Notification["type"]) => {
   return type === "success"

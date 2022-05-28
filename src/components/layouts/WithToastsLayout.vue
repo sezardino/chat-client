@@ -1,7 +1,7 @@
 <template>
-  <div class="min-h-screen grid grid-rows-[auto_1fr]">
+  <div class="max-h-screen min-h-screen grid grid-rows-[auto_1fr]">
     <AppHeader />
-    <main>
+    <main class="h-full overflow-hidden">
       <slot />
     </main>
   </div>

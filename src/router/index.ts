@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { Layouts, PageRoutes } from "@/common";
 import Home from "@/views/HomeView.vue";
-import { useApp } from "@/stores";
+import { useAppStore } from "@/stores";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,7 +34,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, _, next) => {
-  const store = useApp();
+  const store = useAppStore();
 
   if (to.meta.auth && !store.user) {
     next(PageRoutes.LOGIN);
