@@ -6,4 +6,7 @@
 - Pina
 - TypeScript
 - Socket.io
-- TailwindCss
+- TailwindCSS
+- Vite
+
+[Link for backend part](https://github.com/sezardino/chat-backend)
